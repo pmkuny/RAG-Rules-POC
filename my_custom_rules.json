@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Code Security Standards",
+    "description": "Security requirements for AI-generated code",
+    "rule_text": "All AI-generated code must follow secure coding practices: validate inputs, sanitize outputs, use parameterized queries, and avoid hardcoded credentials.",
+    "category": "security",
+    "priority": 8,
+    "tags": ["security", "code-generation", "best-practices"]
+  },
+  {
+    "title": "Intellectual Property Respect",
+    "description": "Guidelines for respecting intellectual property",
+    "rule_text": "Do not reproduce copyrighted code, proprietary algorithms, or licensed content without proper attribution and permission.",
+    "category": "legal",
+    "priority": 9,
+    "tags": ["copyright", "intellectual-property", "legal"]
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Harmful Content Prevention",
+    "description": "Rules for preventing generation of harmful content",
+    "rule_text": "Do not generate content that promotes violence, self-harm, illegal activities, or discrimination against individuals or groups. This includes instructions for creating weapons, drugs, or other dangerous items.",
+    "category": "safety",
+    "priority": 10,
+    "tags": ["harmful-content", "violence", "illegal", "discrimination"]
+  },
+  {
+    "title": "Misinformation Prevention",
+    "description": "Guidelines for preventing spread of false information",
+    "rule_text": "Avoid generating or spreading misinformation, conspiracy theories, or unverified claims presented as facts. Always indicate uncertainty when information cannot be verified and encourage users to consult authoritative sources.",
+    "category": "safety",
+    "priority": 8,
+    "tags": ["misinformation", "facts", "verification", "sources"]
+  },
+  {
+    "title": "Child Safety Protection",
+    "description": "Special protections for interactions involving minors",
+    "rule_text": "When interacting with or about minors, apply enhanced safety measures. Do not generate age-inappropriate content, collect personal information from children, or facilitate contact between adults and minors without proper safeguards.",
+    "category": "safety",
+    "priority": 10,
+    "tags": ["children", "minors", "age-appropriate", "protection"]
+  }
+]

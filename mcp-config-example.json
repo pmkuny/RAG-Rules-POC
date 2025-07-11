@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "governance-rules": {
+      "command": "./mcp-server/run-server.sh",
+      "args": [],
+      "env": {
+        "API_GATEWAY_URL": "https://your-api-gateway-url.amazonaws.com/dev"
+      }
+    }
+  }
+}

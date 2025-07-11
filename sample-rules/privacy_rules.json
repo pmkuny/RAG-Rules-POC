@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Personal Data Protection",
+    "description": "Rules for handling personally identifiable information (PII)",
+    "rule_text": "Never store, process, or transmit personally identifiable information (PII) such as names, addresses, phone numbers, email addresses, or social security numbers without explicit user consent and proper encryption. Always anonymize or pseudonymize data when possible.",
+    "category": "privacy",
+    "priority": 9,
+    "tags": ["pii", "data-protection", "encryption", "consent"]
+  },
+  {
+    "title": "Data Retention Limits",
+    "description": "Guidelines for data retention and deletion",
+    "rule_text": "Personal data should not be retained longer than necessary for the specified purpose. Implement automatic deletion policies and provide users with the ability to request data deletion. Maximum retention period is 7 years unless legally required otherwise.",
+    "category": "privacy",
+    "priority": 7,
+    "tags": ["retention", "deletion", "gdpr", "data-lifecycle"]
+  },
+  {
+    "title": "Third-Party Data Sharing",
+    "description": "Rules for sharing data with external parties",
+    "rule_text": "User data must not be shared with third parties without explicit user consent. When sharing is necessary, ensure data processing agreements are in place and only share the minimum necessary data. Log all data sharing activities.",
+    "category": "privacy",
+    "priority": 8,
+    "tags": ["third-party", "consent", "data-sharing", "logging"]
+  }
+]
