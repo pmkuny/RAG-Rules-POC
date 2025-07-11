@@ -320,6 +320,33 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 3. **MCP server connection issues**: Verify API Gateway URL and network connectivity
 4. **Embedding generation fails**: Ensure Bedrock access in the deployment region
 
+### MCP Integration Issues
+
+**Known Issue**: Q CLI MCP tool validation may fail with error: `Tool validation failed: The tool, "governance-rules___list-all-rules" is supplied with incorrect name`
+
+**Workaround**: Use the direct CLI interface while the MCP issue is resolved:
+
+```bash
+# List all rules
+./gr list --limit 10
+
+# Query rules by context
+./gr query "data privacy" --limit 5
+
+# Query rules by category
+./gr query "safety" --category safety --limit 3
+
+# Load a new rule
+./gr load "My Rule" "Rule content here" --category general --priority 5 --tags tag1 tag2
+```
+
+**Direct Python Usage**:
+```bash
+# Using the virtual environment directly
+venv/bin/python governance-rules-cli.py list --limit 5
+venv/bin/python governance-rules-cli.py query "personal data" --category privacy
+```
+
 ### Getting Help
 
 - Check CloudWatch logs for detailed error messages

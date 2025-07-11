@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "governance-rules": {
+      "command": "/Users/patch/code/rag-rules.poc/mcp-server/run-server.sh",
+      "args": [],
+      "env": {
+        "API_GATEWAY_URL": "https://t9rfu4e2s7.execute-api.us-east-1.amazonaws.com/dev"
+      },
+      "timeout": 120000,
+      "disabled": false
+    }
+  }
+}

@@ -16,7 +16,6 @@ import sys
 from typing import Any, Dict, List, Optional
 import httpx
 from mcp.server import Server
-from mcp.server.models import InitializationOptions
 from mcp.server.stdio import stdio_server
 from mcp.types import (
     CallToolRequest,
@@ -119,6 +118,25 @@ class GovernanceRulesServer:
                         }
                     }
                 }
+            ),
+            Tool(
+                name="augment-prompt-with-rules",
+                description="Augment a user prompt with relevant governance rules",
+                inputSchema={
+                    "type": "object",
+                    "properties": {
+                        "prompt": {
+                            "type": "string",
+                            "description": "The user's prompt to augment"
+                        },
+                        "limit": {
+                            "type": "integer",
+                            "description": "Maximum number of rules to fetch",
+                            "default": 5
+                        }
+                    },
+                    "required": ["prompt"]
+                }
             )
         ]
     
@@ -131,12 +149,64 @@ class GovernanceRulesServer:
                 return await self._query_governance_rules(request.params.arguments)
             elif request.params.name == "list-all-rules":
                 return await self._list_all_rules(request.params.arguments)
+            elif request.params.name == "augment-prompt-with-rules":
+                return await self._augment_prompt_with_rules(request.params.arguments)
             else:
                 return CallToolResult(
                     content=[TextContent(type="text", text=f"Unknown tool: {request.params.name}")]
                 )
         except Exception as e:
             logger.error(f"Error calling tool {request.params.name}: {str(e)}")
+            return CallToolResult(
+                content=[TextContent(type="text", text=f"Error: {str(e)}")]
+            )
+    
+    async def _augment_prompt_with_rules(self, arguments: Dict[str, Any]) -> CallToolResult:
+        """Augment a prompt with relevant governance rules"""
+        try:
+            prompt = arguments.get("prompt")
+            limit = arguments.get("limit", 5)
+            
+            query_data = {"query": prompt, "limit": limit}
+            
+            # Make API request to query rules
+            response = await self.http_client.post(
+                f"{API_GATEWAY_URL}/rules/query",
+                json=query_data,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            augmented_prompt = f"Original prompt: {prompt}\n\n"
+
+            if response.status_code == 200:
+                result = response.json()
+                if result.get("success") and result.get("rules"):
+                    rules = result["rules"]
+                    
+                    rules_text = "\n".join(
+                        f"- {rule.get('title', 'Untitled')}: {rule.get('rule_text', '')}"
+                        for rule in rules
+                    )
+                    
+                    augmented_prompt = (
+                        "Please adhere to the following rules when responding to the user's request:\n"
+                        "<rules>\n"
+                        f"{rules_text}\n"
+                        "</rules>\n\n"
+                        f"User's request: {prompt}"
+                    )
+                else:
+                    # If no rules are found or query fails, just use the original prompt
+                    logger.warning("Could not retrieve rules. Using original prompt.")
+            else:
+                logger.error(f"API request to query rules failed with status {response.status_code}: {response.text}")
+
+            return CallToolResult(
+                content=[TextContent(type="text", text=augmented_prompt)]
+            )
+
+        except Exception as e:
+            logger.error(f"Error augmenting prompt: {str(e)}")
             return CallToolResult(
                 content=[TextContent(type="text", text=f"Error: {str(e)}")]
             )
@@ -326,14 +396,7 @@ class GovernanceRulesServer:
             await self.server.run(
                 read_stream,
                 write_stream,
-                InitializationOptions(
-                    server_name="governance-rules",
-                    server_version="1.0.0",
-                    capabilities=self.server.get_capabilities(
-                        notification_options=None,
-                        experimental_capabilities=None,
-                    ),
-                ),
+                self.server.create_initialization_options()
             )
 
 async def main():

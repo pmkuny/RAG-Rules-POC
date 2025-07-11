@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "governance-rules": {
+      "command": "python",
+      "args": ["/Users/patch/code/rag-rules.poc/mcp-server/server.py"],
+      "env": {
+        "API_GATEWAY_URL": "https://t9rfu4e2s7.execute-api.us-east-1.amazonaws.com/dev"
+      }
+    }
+  }
+}

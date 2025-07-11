@@ -1,0 +1,4 @@
+#!/bin/bash
+# Governance Rules CLI Wrapper
+cd "$(dirname "${BASH_SOURCE[0]}")"
+venv/bin/python governance-rules-cli.py "$@"

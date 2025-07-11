@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "test-server": {
+      "command": "/Users/patch/code/rag-rules.poc/venv/bin/python",
+      "args": ["/Users/patch/code/rag-rules.poc/mcp-server/test-server.py"],
+      "env": {}
+    }
+  }
+}
